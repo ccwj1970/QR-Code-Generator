@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1> CodeCraft QR</h1>
+    <h2> Craft Your Code, Make it Yours </h2>
+    <h3> 👇👇🏻👇🏼👇🏽👇🏾👇🏿 </h3>
+    <div class="container">
+        <div class="share">
+            <p>Enter your text or URL</p>
+            <button id="shareButton" aria-label="Share">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path d="M503.7 189.8L327.7 37.9C312.3 24.5 288 35.3 288 56v80.1C127.4 137.9 0 170.1 0 322.3c0 61.4 39.6 122.3 83.3 154.1 13.7 9.9 33.1-2.5 28.1-18.6C66.1 312.8 132.9 274.3 288 272.1V360c0 20.7 24.3 31.5 39.7 18.2l176-152c11.1-9.6 11.1-26.8 0-36.3z"/>
+                </svg>
+            </button>
+        </div>
+         <!-- Step 3 : Get the Input id + QR example link = customized link-->
+        <input type="text" placeholder="Text or URL" id="qrText">
+        <!-- Step 2 : Create an Image Box -->
+        <div class="imgBox">
+            <img src="" id="qrImage" alt="">
+        </div>
+        <!-- Step 5: call the function -->
+        <button onclick="generateQR()">Generate QR Code</button>
+    </div>
+    
+<!-- Step 1 : Create a function -->
+<!-- Step 4 : QR Code link = qrImage.src + qrText.value -->
+<!-- Step 6 : Apply the new class name to imgBox -->
+<script>
+    let imgBox = document.getElementById("imgBox");
+    let qrImage = document.getElementById("qrImage");
+    let qrText = document.getElementById("qrText");
+    function generateQR(){
+       qrImage.src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + qrText.value;
+    }
+</script>
+
+<!-- Step 7 : The Web Share API -->
+<script>
+    const share = () => {
+        // share 函數內部：我們使用了 navigator.share 方法來實現 Web Share API 的功能
+        if (navigator.share) {
+            navigator.share({
+                text: 'Check out this website!',
+                url: 'https://ccwj1970.github.io/QR-Code-Generator/',
+                title: 'QR Code Generator'
+            })
+        } else {
+            console.log('Web Share API not supported.');
+        }
+    };
+
+    // 當shareButton 被點擊（click）之後，share 需要執行的回調函數
+    const shareButton = document.getElementById('shareButton');
+    shareButton.addEventListener('click', share);
+
+</script>
+
+</body>
+</html>
+
+<!-- addEventListener: element.addEventListener(event, function, useCapture);
+    1. element 是要添加事件監聽器的 DOM 元素。
+    2. event 是要監聽的事件類型，例如 "click"、"mouseover" 等。
+    3. function 是當事件被觸發時要執行的函數，也稱為事件處理器或事件回調函數。
+    4. useCapture 是一個可選的布林值參數，表示是否使用事件捕獲（capture）。
+ -->
